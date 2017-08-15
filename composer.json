@@ -21,10 +21,12 @@
     }
   ],
   "require": {
-    "composer/installers": "^1.2",
-    "cweagans/composer-patches": "^1.6",
-    "drupal-composer/drupal-scaffold": "^2.2",
-    "drupal/console": "~1.0",
+    "php": ">=5.6",
+    "composer/installers": "^1.0.24",
+    "wikimedia/composer-merge-plugin": "^1.4",
+    "cweagans/composer-patches": "^1.6.0",
+    "drupal-composer/drupal-scaffold": "^2.2.0",
+    "drupal/drupal-library-installer-plugin": "~0.3",
     "webflo/drupal-finder": "^0.3.0",
     "webmozart/path-util": "^2.3",
     "webship/webship": "8.1.x-dev"
