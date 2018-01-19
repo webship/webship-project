@@ -2,7 +2,7 @@
   "name": "webship/webship-project",
   "description": "Project template for webship projects with composer",
   "type": "project",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Webship",
