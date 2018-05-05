@@ -14,17 +14,24 @@
     "issues": "http://drupal.org/project/issues/webship",
     "source": "http://cgit.drupalcode.org/webship"
   },
-   "repositories": [
-    {
+  "repositories": {
+    "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
+      },
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
     }
-  ],
+  },
   "require": {
     "composer/installers": "1.5.0",
+    "oomphinc/composer-installers-extender": "1.1.2",
     "cweagans/composer-patches": "1.6.4",
     "drupal-composer/drupal-scaffold": "2.4.0",
     "drupal/drupal-library-installer-plugin": "0.3",
+    "webflo/drupal-finder": "1.1.0",
+    "webmozart/path-util": "2.3.0",
     "webship/webship": "8.1.x-dev"
   },
   "conflict": {
