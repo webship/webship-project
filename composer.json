@@ -1,64 +1,94 @@
 {
   "name": "webship/webship-project",
   "description": "Project template for webship projects with composer",
-  "type": "project",
-  "license": "GPL-2.0-or-later",
-  "authors": [
-    {
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
       "name": "Webship",
       "homepage": "https://github.com/webship",
       "role": "Maintainer"
-    }
-  ],
+        }
+    ],
   "support": {
     "issues": "http://drupal.org/project/issues/webship",
     "source": "http://cgit.drupalcode.org/webship"
   },
-  "repositories": {
-    "drupal": {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-      },
-    "assets": {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
+    "repositories": {
+      "drupal": {
+        "type": "composer",
+        "url": "https://packages.drupal.org/8"
+        },
+      "assets": {
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+      }
+    },
+    "require": {
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "^1.6.5",
+        "drupal-composer/drupal-scaffold": "^2.5",
+        "drupal/console": "^1.0.2",
+        "drupal/core": "^8.6.0",
+        "drush/drush": "^9.0.0",
+        "vlucas/phpdotenv": "^2.4",
+        "webflo/drupal-finder": "^1.0.0",
+        "webmozart/path-util": "^2.3",
+        "webship/webship": "8.1.x-dev"
+    },
+    "require-dev": {
+        "webflo/drupal-core-require-dev": "^8.6.0"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "bin-dir": "bin/",
+        "secure-http": false,
+        "preferred-install": {
+          "drupal/core": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php"
+        ],
+        "files": ["load.environment.php"]
+    },
+    "scripts": {
+        "pre-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "pre-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ]
+    },
+    "extra": {
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/{$name}": ["type:drupal-drush"]
+        },
+        "drupal-scaffold": {
+            "initial": {
+                ".editorconfig": "../.editorconfig",
+                ".gitattributes": "../.gitattributes"
+            }
+        }
     }
-  },
-  "require": {
-    "composer/installers": "1.5.0",
-    "oomphinc/composer-installers-extender": "1.1.2",
-    "cweagans/composer-patches": "1.6.4",
-    "drupal-composer/drupal-scaffold": "2.4.0",
-    "drupal/drupal-library-installer-plugin": "0.3",
-    "webflo/drupal-finder": "1.1.0",
-    "webmozart/path-util": "2.3.0",
-    "webship/webship": "8.1.x-dev"
-  },
-  "conflict": {
-    "drupal/drupal": "*"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "bin-dir": "bin/",
-    "secure-http": false
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-8.x-1.x": "8.1.x-dev",
-      "dev-8.1.x": "8.1.x-dev"
-    },
-    "installer-paths": {
-      "web/core": ["drupal/core"],
-      "web/profiles/{$name}": ["type:drupal-profile"],
-      "web/modules/contrib/{$name}": ["type:drupal-module"],
-      "web/themes/contrib/{$name}": ["type:drupal-theme"],
-      "web/libraries/{$name}": ["type:drupal-library"],
-      "web/modules/custom/{$name}": ["type:drupal-custom-module"],
-      "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
-      "drush/contrib/{$name}": ["type:drupal-drush"]
-    },
-    "enable-patching": true,
-    "composer-exit-on-patch-failure": true
-  }
 }
