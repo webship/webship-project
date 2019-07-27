@@ -10,10 +10,10 @@
       "role": "Maintainer"
         }
     ],
-  "support": {
-    "issues": "http://drupal.org/project/issues/webship",
-    "source": "http://cgit.drupalcode.org/webship"
-  },
+    "support": {
+      "issues": "http://drupal.org/project/issues/webship",
+      "source": "http://cgit.drupalcode.org/webship"
+    },
     "repositories": {
       "drupal": {
         "type": "composer",
@@ -44,12 +44,11 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "bin-dir": "bin/",
-        "secure-http": false,
-        "preferred-install": {
-          "drupal/core": "dist"
-        },
-        "sort-packages": true
+      "bin-dir": "bin/",
+      "secure-http": false,
+      "preferred-install": {
+        "drupal/core": "dist"
+      }
     },
     "autoload": {
         "classmap": [
@@ -72,22 +71,42 @@
         ]
     },
     "extra": {
-        "patchLevel": {
-            "drupal/core": "-p2"
-        },
-        "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/{$name}": ["type:drupal-drush"]
-        },
-        "drupal-scaffold": {
-            "initial": {
-                ".editorconfig": "../.editorconfig",
-                ".gitattributes": "../.gitattributes"
-            }
-        }
+    "branch-alias": {
+      "dev-8.x-1.x": "8.1.x-dev"
+    },
+    "installer-types": [
+      "bower-asset",
+      "npm-asset"
+    ],
+    "installer-paths": {
+      "web/core": ["type:drupal-core"],
+      "web/profiles/{$name}": ["type:drupal-profile"],
+      "web/modules/contrib/{$name}": ["type:drupal-module"],
+      "web/themes/contrib/{$name}": ["type:drupal-theme"],
+      "web/libraries/slick": ["npm-asset/slick-carousel"],
+      "web/libraries/ace": ["npm-asset/ace-builds"],
+      "web/libraries/{$name}": [
+        "type:drupal-library",
+        "type:bower-asset",
+        "type:npm-asset"
+      ],
+      "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+      "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
+      "drush/contrib/{$name}": ["type:drupal-drush"]
+    },
+    "drupal-libraries": {
+      "library-directory": "web/libraries",
+      "libraries": [
+        {"name": "dropzone","package": "npm-asset/dropzone"},
+        {"name": "blazy", "package": "npm-asset/blazy"},
+        {"name": "slick", "package": "npm-asset/slick-carousel"},
+        {"name": "ace", "package": "npm-asset/ace-builds"}
+      ]
+    },
+    "enable-patching": true,
+    "composer-exit-on-patch-failure": true,
+    "patchLevel": {
+       "drupal/core": "-p2"
     }
+  }
 }
