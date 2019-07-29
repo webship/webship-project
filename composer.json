@@ -34,7 +34,6 @@
       "webship/webship": "8.1.x-dev"
     },
     "require-dev": {
-      "webflo/drupal-core-require-dev": "@stable",
       "drupal/console": "@stable",
       "drush/drush": "@stable",
       "drupal/coder": "@stable",
@@ -60,6 +59,7 @@
     "config": {
       "bin-dir": "bin/",
       "secure-http": false,
+      "optimize-autoloader": true,
       "preferred-install": {
         "drupal/core": "dist"
       }
@@ -78,10 +78,12 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "DrupalProject\\composer\\ScriptHandler::removeGitDirectories"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "DrupalProject\\composer\\ScriptHandler::removeGitDirectories"
         ]
     },
     "extra": {
