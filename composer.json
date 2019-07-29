@@ -25,24 +25,38 @@
       }
     },
     "require": {
-        "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6.5",
-        "drupal-composer/drupal-scaffold": "^2.5",
-        "vlucas/phpdotenv": "^2.4",
-        "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3",
-        "webship/webship": "8.1.x-dev"
+      "composer/installers": "@stable",
+      "cweagans/composer-patches": "@stable",
+      "drupal-composer/drupal-scaffold": "@stable",
+      "vlucas/phpdotenv": "@stable",
+      "webflo/drupal-finder": "@stable",
+      "webmozart/path-util": "@stable",
+      "webship/webship": "8.1.x-dev"
     },
     "require-dev": {
-        "webflo/drupal-core-require-dev": "^8.6.0",
-        "drupal/console": "^1.0.2",
-        "drush/drush": "^9.0.0"
+      "webflo/drupal-core-require-dev": "@stable",
+      "drupal/console": "@stable",
+      "drush/drush": "@stable",
+      "drupal/coder": "@stable",
+      "drupal/drupal-extension": "@stable",
+      "phing/phing": "@stable",
+      "behat/behat": "@stable",
+      "behat/mink": "@stable",
+      "behat/mink-extension": "@stable",
+      "behat/mink-goutte-driver": "@stable",
+      "behat/mink-zombie-driver": "@stable",
+      "behat/mink-selenium2-driver": "@stable",
+      "behatch/contexts": "@stable",
+      "emuse/behat-html-formatter": "@stable"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "replace": {
+      "ajaxorg/ace-builds": "*"
+    },
     "config": {
       "bin-dir": "bin/",
       "secure-http": false,

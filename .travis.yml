@@ -1,30 +1,95 @@
-language: php
 dist: trusty
-sudo: false
+
+language: php
+cache:
+  bundler: true
+  directories:
+    - "$HOME/.composer/cache"
+    - "$HOME/.drush/cache"
+    - "$HOME/.npm"
+    - "$HOME/.selenium/cache"
 
 php:
-  - 7.0
   - 7.1
   - 7.2
+  - 7.3
+  - 7.4
 
-env:
-  global:
-    - SIMPLETEST_DB=sqlite://tmp/site.sqlite
-    - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
+mysql:
+  database: test_varbase6c
+  username: root
+  encoding: utf8
 
 before_install:
-  - composer --verbose self-update
+  - composer self-update
   - composer --version
 
-install:
-  - composer --verbose validate
-  - composer --verbose install
+  # Composer Configurations.
+  - export PATH="$HOME/.composer/vendor/bin:$TRAVIS_BUILD_DIR/bin:$PATH"
+  - export COMPOSER_EXIT_ON_PATCH_FAILURE=1
 
+  # MySQL Configurations.
+  - mysql -e 'SET GLOBAL wait_timeout = 5400;'
+  - mysql -e "SHOW VARIABLES LIKE 'wait_timeout'"
+
+  # PHP Configurations.
+  - echo 'max_execution_time = 1200' >> webship.php.ini;
+  - echo 'max_input_time = 180' >> webship.php.ini;
+  - echo 'max_input_vars = 10000' >> webship.php.ini;
+  - echo 'memory_limit = 3000M' >> webship.php.ini;
+  - echo 'error_reporting = E_ALL' >> webship.php.ini;
+  - echo 'post_max_size = 64M' >> webship.php.ini;
+  - echo 'upload_max_filesize = 32M' >> webship.php.ini;
+  - echo 'max_file_uploads = 40' >> webship.php.ini;
+  - echo 'sendmail_path = /bin/true' >> webship.php.ini;
+  - phpenv config-add webship.php.ini
+  - phpenv rehash
+
+  # Configure and run the virtual display.
+  - export DISPLAY=:99
+  - sh -e /etc/init.d/xvfb start
+  - Xvfb :99 -ac -screen 0 1366x768x24 &>/dev/null &
+  - sleep 3
+
+  # Download Chrome Driver.
+  - LATEST_CHROMEDRIVER=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+  - wget http://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - chmod +x chromedriver
+  - mkdir -p $HOME/.composer/vendor/bin
+  - mv -f chromedriver $HOME/.composer/vendor/bin/
+  - rm chromedriver_linux64.zip
+
+  # Update Chrome.
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome-stable_current_amd64.deb
+  - rm google-chrome-stable_current_amd64.deb
+  - google-chrome --version
+
+  # Run selenium standalone server.
+  - SELENIUM="$HOME/.selenium/cache/selenium-server-standalone-2.53.1.jar";
+  - if [[ ! -f $SELENIUM ]]; then wget -O $SELENIUM http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar; fi
+  - java -jar $SELENIUM -port 4444 > /dev/null 2>&1 &
+  - echo "[  OK  ] Starting Selenium on the 4444 port ..."
+install:
+  - git checkout $TRAVIS_COMMIT
+  ## Build with the composer.
+  - composer install --no-interaction
+
+  ## Install with drush.
+  - cd web
+  - drush site-install webship --yes --site-name='Webship' --account-name=admin --account-pass=dD.123123ddd --account-mail=webship@webship.org --db-url="mysql://root:@localhost/test_webship" 
+  - drush config-set system.performance css.preprocess 0 --yes
+  - drush config-set system.performance js.preprocess 0 --yes
+  - drush config-set system.logging error_level all --yes
+  - drush cr
+before_script:
+  - drush runserver --default-server=builtin 8080 &>/dev/null &
+  - sleep 5
 script:
-  - cd $TRAVIS_BUILD_DIR/web
-  - ./../vendor/bin/drush site-install webship --yes --site-name='Webship' --verbose --db-url=sqlite://tmp/site.sqlite
-  - ./../vendor/bin/drush runserver $SIMPLETEST_BASE_URL &
-  - until curl -s $SIMPLETEST_BASE_URL; do true; done > /dev/null
-  - ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer,DependencyInjection,PageCache,Setup
-  - ./../vendor/bin/drush
-  - if [[ $RELEASE = stable ]]; then ./../vendor/bin/drupal; fi;
+  - cd ./profiles/webship
+  - behat --strict tests/features/webship
+
+matrix:
+  fast_finish: true
