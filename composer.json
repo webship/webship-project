@@ -68,19 +68,19 @@
     "scripts": {
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "pre-install-cmd": [
-            "Webship\\composer\\Procedures::checkComposerVersion"
+            "Webship\\composer\\Procedures::checkComposerVersionProcedure"
         ],
         "pre-update-cmd": [
-            "Webship\\composer\\Procedures::checkComposerVersion"
+            "Webship\\composer\\Procedures::checkComposerVersionProcedure"
         ],
         "post-install-cmd": [
-            "Webship\\composer\\Procedures::createRequiredFiles",
-            "Webship\\composer\\Procedures::removeGitDirectories",
+            "Webship\\composer\\Procedures::createRequiredFilesProcedure",
+            "Webship\\composer\\Procedures::removeGitDirectoriesProcedure",
             "@composer drupal-scaffold"
         ],
         "post-update-cmd": [
-            "Webship\\composer\\Procedures::createRequiredFiles",
-            "Webship\\composer\\Procedures::removeGitDirectories",
+            "Webship\\composer\\Procedures::createRequiredFilesProcedure",
+            "Webship\\composer\\Procedures::removeGitDirectoriesProcedure",
             "@composer drupal-scaffold"
         ]
     },
