@@ -65,26 +65,23 @@
         "drupal/core": "dist"
       }
     },
-    "autoload": {
-        "classmap": [
-            "scripts/composer/ScriptHandler.php"
-        ],
-        "files": ["load.environment.php"]
-    },
     "scripts": {
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "pre-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+            "Webship\\composer\\Procedures::checkComposerVersion"
         ],
         "pre-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+            "Webship\\composer\\Procedures::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\ScriptHandler::removeGitDirectories"
+            "Webship\\composer\\Procedures::createRequiredFiles",
+            "Webship\\composer\\Procedures::removeGitDirectories",
+            "@composer drupal-scaffold"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\ScriptHandler::removeGitDirectories"
+            "Webship\\composer\\Procedures::createRequiredFiles",
+            "Webship\\composer\\Procedures::removeGitDirectories",
+            "@composer drupal-scaffold"
         ]
     },
     "extra": {
