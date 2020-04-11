@@ -32,11 +32,7 @@
       "webship/webship": "8.2.x-dev"
     },
     "require-dev": {
-      "drupal/core-dev": "^8.8.0",
-      "drupal/console": "^1.0",
-      "drush/drush": "^9.0",
-      "behat/behat": "~3.0",
-      "drupal/drupal-extension": "^3.2"
+      "drupal/webtest": "8.1.x-dev"
     },
     "conflict": {
       "drupal/drupal": "*"
