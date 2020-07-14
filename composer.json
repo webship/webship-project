@@ -15,19 +15,24 @@
     "source": "http://cgit.drupalcode.org/webship"
   },
   "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.org"
+    },
     "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
+    },
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
     }
   },
   "require": {
     "composer/installers": "^1.2",
-    "drupal/core-composer-scaffold": "^8.8.0",
-    "drupal/core-project-message": "^8.8.0",
-    "webship/webship": "8.2.x-dev"
-  },
-  "require-dev": {
-    "drupal/webtest": "8.1.x-dev"
+    "drupal/core-composer-scaffold": "~9",
+    "drupal/core-project-message": "^9",
+    "webship/webship": "9.0.x-dev"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -37,10 +42,10 @@
   "config": {
     "bin-dir": "bin/",
     "secure-http": false,
-    "preferred-install": {
-      "drupal/core": "dist"
-    },
-    "sort-packages": true
+    "process-timeout": 1800,
+    "github-protocols": [
+      "https,ssh"
+    ]
   },
   "extra": {
     "drupal-scaffold": {
