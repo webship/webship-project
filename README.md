@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/webship/webship-project.svg?branch=9.0.x)](https://travis-ci.org/webship/project)
+[![Build Status](https://travis-ci.org/webship/webship.svg?branch=9.0.x)](https://travis-ci.org/webship/webship)
 
 # Webship
 
