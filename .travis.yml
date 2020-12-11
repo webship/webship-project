@@ -82,8 +82,6 @@ install:
   - git checkout $TRAVIS_COMMIT
   ## Build with the composer.
   - composer install --no-interaction
-  - mkdir web/profiles/contrib
-  - git clone --branch 9.0.x https://github.com/webship/webship.git web/profiles/contrib/webship
 
   ## Install with drush.
   - cd web
