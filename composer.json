@@ -76,11 +76,12 @@
       "post-create-project-cmd-message": [
         "<bg=blue;fg=white>                                                                  </>",
         "<bg=blue;fg=white> ████████████████████████████████████████████████████████████████ </>",
-        "<bg=blue;fg=white>                                                                  </>",
-        "<bg=blue;fg=white>     Congratulations, you’ve installed the Webship codebase       </>",
-        "<bg=blue;fg=white>     from the webship/webship-project template!                   </>",
-        "<bg=blue;fg=white>                                                                  </>",
-        "<bg=blue;fg=white> ████████████████████████████████████████████████████████████████ </>"
+        "<bg=blue;fg=white> █                                                              █ </>",
+        "<bg=blue;fg=white> █    Congratulations, you’ve installed the Webship codebase    █ </>",
+        "<bg=blue;fg=white> █    from the webship/webship-project template!                █ </>",
+        "<bg=blue;fg=white> █                                                              █ </>",
+        "<bg=blue;fg=white> ████████████████████████████████████████████████████████████████ </>",
+        "<bg=blue;fg=white>                                                                  </>"
         ]
     }
   }
