@@ -35,6 +35,7 @@
   },
   "require-dev": {
     "drupal/core-dev": "~9",
+    "drush/drush": "~10",
     "drupal/webtest": "~9"
   },
   "conflict": {
