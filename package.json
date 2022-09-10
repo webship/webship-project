@@ -1,0 +1,22 @@
+{
+    "name": "webship",
+    "version": "1.0.0",
+    "description": "Webship helps in speeding up the work of web developers to ship websites in a swift way.",
+    "main": "index.js",
+    "keywords": [
+      "webship",
+      "drupal",
+      "testing",
+      "test"
+    ],
+    "author": "Webship.org",
+    "license": "GPL-2.0",
+    "scripts": {
+      "test": "nightwatch"
+    },
+    "dependencies": {
+      "webship-js":"~1.0"
+    }
+  }
+  
+  
