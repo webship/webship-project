@@ -33,12 +33,11 @@
     "composer/installers": "~2.0",
     "oomphinc/composer-installers-extender": "~2.0",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core-composer-scaffold": "~9.0",
-    "webship/webship": "9.1.x-dev"
+    "drupal/core-composer-scaffold": "~10.0",
+    "webship/webship": "10.0.x-dev"
   },
   "require-dev": {
-    "drupal/core-dev": "~9.0",
-    "drupal/webtest": "9.0.x-dev"
+    "drupal/core-dev": "~10.0"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -86,7 +85,6 @@
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/modules/contrib/{$name}": ["type:drupal-module"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
-      "web/libraries/link": ["npm-asset/ckeditor--ckeditor5-link"],
       "web/libraries/{$name}": [
         "type:drupal-library",
         "type:bower-asset",
@@ -102,9 +100,7 @@
     ],
     "drupal-libraries": {
       "library-directory": "web/libraries",
-      "libraries": [
-        {"name": "link", "package": "npm-asset/ckeditor--ckeditor5-link"}
-      ]
+      "libraries": [ ]
     },
     "enable-patching": true,
     "composer-exit-on-patch-failure": true,
