@@ -30,10 +30,10 @@
     }
   },
   "require": {
-    "composer/installers": "~2.0",
-    "oomphinc/composer-installers-extender": "~2.0",
-    "cweagans/composer-patches": "~1.0",
-    "drupal/core-composer-scaffold": "~10.0",
+    "composer/installers": "~2",
+    "oomphinc/composer-installers-extender": "~2",
+    "symplify/vendor-patches": "~11",
+    "drupal/core-composer-scaffold": "~10",
     "webship/webship": "10.0.x-dev"
   },
   "conflict": {
@@ -48,6 +48,8 @@
     },
     "allow-plugins": {
       "composer/installers": true,
+      "symplify/vendor-patches": true,
+      "cweagans/composer-configurable-plugin": true,
       "cweagans/composer-patches": true,
       "oomphinc/composer-installers-extender": true,
       "drupal/core-composer-scaffold": true,
@@ -104,6 +106,6 @@
     "patchLevel": {
       "drupal/core": "-p2"
     },
-    "patches": {}
+    "patches": { }
   }
 }
