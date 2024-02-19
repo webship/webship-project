@@ -32,7 +32,6 @@
   "require": {
     "composer/installers": "~2",
     "oomphinc/composer-installers-extender": "~2",
-    "symplify/vendor-patches": "~11",
     "drupal/core-composer-scaffold": "~10",
     "webship/webship": "10.0.x-dev"
   },
