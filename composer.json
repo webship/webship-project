@@ -79,6 +79,9 @@
         }
       }
     },
+    "drupal-lenient": {
+      "allow-all": true
+    },
     "installer-paths": {
       "web/core": ["type:drupal-core"],
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
@@ -107,8 +110,5 @@
       "drupal/core": "-p2"
     },
     "patches": { }
-  },
-  "drupal-lenient": {
-    "allowed-list": ["drupal/config_import_single"]
   }
 }
