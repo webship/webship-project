@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/webship/webship.svg?branch=11.0.x)](https://travis-ci.com/github/webship/webship/builds) 11.0.x
+[![CircleCI](https://circleci.com/gh/webship/webship/tree/11.0.x.svg?style=svg)](https://app.circleci.com/pipelines/github/webship/webship/157/workflows/c4265b78-a56b-4064-b24e-fe14e5162da1) 11.0.0-alpha1
 
 # Webship
 
@@ -6,21 +6,23 @@
 
 The Webship.co portal site was built on top of Drupal, as it has many options, tools, frameworks, and configuration management, which are needed in building solutions.
 
-Helps in speeding up the work of having Functional Automated Acceptance Testing for products to ship websites in a swift way.
-
 ## Usage
 
 First you need to [install composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
 
-> Note: The instructions below refer to the [global composer
-installation](https://getcomposer.org/doc/00-intro.md#globally).
+> Note: The instructions below refer to the [global composer installation](https://getcomposer.org/doc/00-intro.md#globally).
 You might need to replace `composer` with `php composer.phar` (or similar)
 for your setup.
 
 After that you can create the project:
 
+To install the latest version of Webship ~11.0.0 run this command:
+```
+composer create-project webship/webship-project:11.0.0-alpha1 WEBSITE_NAME --stability dev --no-interaction
+```
 
-To install the dev version of Webship 11.0.x run this command:
+
+To install the development version of Webship 11.0.x run this command:
 ```
 composer create-project webship/webship-project:11.0.x-dev WEBSITE_NAME --stability dev --no-interaction
 ```
