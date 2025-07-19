@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/webship/webship/tree/11.0.x.svg?style=svg)](https://app.circleci.com/pipelines/github/webship/webship/170/workflows/c4dbf5c8-4d74-4a81-ad68-c150307bb5641) 11.0.0-beta1
+[![CircleCI](https://circleci.com/gh/webship/webship/tree/11.0.x.svg?style=svg)](https://app.circleci.com/pipelines/github/webship/webship/170/workflows/c4dbf5c8-4d74-4a81-ad68-c150307bb564) 11.0.0-beta1
 
 # Webship
 
