@@ -23,17 +23,13 @@
     "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
-    },
-    "assets": {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
     }
   },
   "require": {
     "composer/installers": "~2",
-    "oomphinc/composer-installers-extender": "~2",
+    "oomphinc/composer-installers-extender": "~2.0",
+    "cweagans/composer-patches": "~2.0",
     "drupal/core-composer-scaffold": "~11",
-    "mglaman/composer-drupal-lenient": "~1",
     "drupal/core": "~11",
     "webship/webship": "11.0.x-dev"
   },
