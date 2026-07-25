@@ -26,6 +26,57 @@ include:
 variables:
   YARN_ENABLE_IMMUTABLE_INSTALLS: "false"
 
+# The shared drupalci `composer` job (include.drupalci.main.yml) is built for
+# MODULES/THEMES/PROFILES: it runs expand_composer_json.php, which merges the
+# project's composer.json into a module-style scaffold that (among other
+# things) injects cweagans/composer-patches ~1.7.3 for core patching. This
+# template is the opposite: a composer `type: project` template that is
+# itself the site's root composer.json (it requires drupal/core and
+# webship/webship directly, and requires cweagans/composer-patches ~2.0
+# itself). Running it through expand_composer_json.php produces a version
+# conflict (root requires ~2.0, expand_composer_json.php's scaffold pins
+# 1.7.3) that has nothing to do with this template's own dependency graph —
+# verified with a clean `composer install` against this composer.json alone,
+# which resolves cweagans/composer-patches at 2.0.0 with no conflict.
+# So: override `composer` with a plain `composer install` of the template's
+# own composer.json, matching exactly what a real `composer create-project
+# drupal/webship_project` does. `phpcs`/`phpstan`/`composer-lint` (the last
+# one from the shared include, unmodified) need PHPCS/PHPStan/parallel-lint,
+# which the expand_composer_json.php scaffold would otherwise have provided
+# for free — they're now required directly below (require-dev) so a plain
+# composer install still gives every validate-stage job its tools.
+composer:
+  stage: build
+  rules:
+    - when: on_success
+  variables:
+    COMPOSER_NO_INTERACTION: 1
+  script:
+    - cd $CI_PROJECT_DIR && pwd
+    - composer --version
+    - composer validate
+    - composer install --no-interaction
+    # This template's composer.json sets config.bin-dir to "bin/" (not the
+    # Composer default vendor/bin/) — export it so the validate-stage jobs
+    # below (and composer-lint from the shared include) find phpcs/phpstan/
+    # parallel-lint at the right path.
+    - echo "COMPOSER_BIN_DIR=$CI_PROJECT_DIR/bin" >> build.env
+  artifacts:
+    expire_in: 1 week
+    when: always
+    exclude:
+      - '.git'
+      - '.git/**/*'
+      - '$_WEB_ROOT/**/.git'
+      - '$_WEB_ROOT/**/.git/**/*'
+      - 'vendor/**/.git'
+      - 'vendor/**/.git/**/*'
+    name: artifacts-$CI_PIPELINE_ID-$CI_JOB_NAME_SLUG
+    paths:
+      - .
+    reports:
+      dotenv: build.env
+
 cspell:
   stage: validate
   image: node:20
