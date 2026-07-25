@@ -23,10 +23,6 @@
     "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
-    },
-    "webship": {
-      "type": "vcs",
-      "url": "https://git.drupalcode.org/project/webship.git"
     }
   },
   "require": {
@@ -35,7 +31,7 @@
     "cweagans/composer-patches": "~2.0",
     "drupal/core-composer-scaffold": "~11.4.0",
     "drupal/core": "~11.4.0",
-    "drupal/webship": "11.0.x-dev"
+    "webship/webship": "11.0.x-dev"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -62,7 +58,7 @@
     "drupal-scaffold": {
       "allowed-packages": [
         "drupal/core",
-        "drupal/webship"
+        "webship/webship"
       ],
       "gitignore": true,
       "locations": {
