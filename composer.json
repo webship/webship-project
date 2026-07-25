@@ -51,7 +51,8 @@
       "oomphinc/composer-installers-extender": true,
       "drupal/core-composer-scaffold": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "mglaman/composer-drupal-lenient": true
+      "mglaman/composer-drupal-lenient": true,
+      "symfony/runtime": false
     }
   },
   "extra": {

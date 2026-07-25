@@ -75,11 +75,77 @@ eslint:
 stylelint:
   extends: .lint-yarn
   stage: validate
+  # The shared drupalci pipeline (include.drupalci.main.yml) also defines a
+  # `stylelint` job, but only creates it when the repo has `**/*.css` files
+  # (rules: exists: ...). Same-named jobs from a local file and an include
+  # are deep-merged key by key, so without this override our job would
+  # silently inherit that gating rule and never run. This template has no
+  # CSS of its own — override `rules:` so the job still runs (and passes
+  # trivially) for pipeline-shape parity with the other web* projects.
+  rules:
+    - when: on_success
   script:
     - yarn lint:css || true
   after_script:
     - echo '[]' > gl-codequality.json
   allow_failure: true
+
+# The shared drupalci `phpcs` / `phpstan` jobs are also gated by an
+# `exists:` rule (real .php/.module/... files somewhere in the repo) and
+# assume `$DRUPAL_PROJECT_FOLDER` is a module/theme installed under
+# web/modules|themes/custom/<name>, which doesn't apply to this composer
+# `type: project` template. For pipeline-shape parity with the other web*
+# projects (composer-lint, phpcs, phpstan, eslint, stylelint, cspell all
+# present in the validate stage) these are self-contained overrides that
+# check the template's own source (excluding vendor/, $_WEB_ROOT/ and
+# node_modules/) and pass trivially since this template ships no PHP.
+phpcs:
+  stage: validate
+  needs: [composer]
+  rules:
+    - when: on_success
+  script:
+    - cd $CI_PROJECT_DIR
+    - PHP_FILES=$(find . -type f \( -name "*.php" -o -name "*.module" -o -name "*.inc" -o -name "*.install" -o -name "*.test" -o -name "*.profile" -o -name "*.theme" \) -not -path "./vendor/*" -not -path "./$_WEB_ROOT/*" -not -path "./node_modules/*" 2>/dev/null | wc -l) || true
+    - |
+      if [ "$PHP_FILES" -gt 0 ]; then
+        $COMPOSER_BIN_DIR/phpcs . --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,test,profile,theme --ignore=vendor/*,$_WEB_ROOT/*,node_modules/* -s --report-junit=junit.xml --report-full --report-summary || true
+      else
+        echo "This project template has no PHP files of its own to check with PHPCS; nothing to do."
+        touch junit.xml
+      fi
+  allow_failure: true
+  artifacts:
+    when: always
+    expire_in: 6 mos
+    paths:
+      - junit.xml
+    reports:
+      junit: junit.xml
+
+phpstan:
+  stage: validate
+  needs: [composer]
+  rules:
+    - when: on_success
+  script:
+    - cd $CI_PROJECT_DIR
+    - PHP_FILES=$(find . -type f -name "*.php" -not -path "./vendor/*" -not -path "./$_WEB_ROOT/*" -not -path "./node_modules/*" 2>/dev/null | wc -l) || true
+    - |
+      if [ "$PHP_FILES" -gt 0 ] && [ -e $COMPOSER_BIN_DIR/phpstan ]; then
+        php $COMPOSER_BIN_DIR/phpstan analyze . --autoload-file="$CI_PROJECT_DIR/vendor/autoload.php" --no-progress --error-format=junit > junit.xml || true
+      else
+        echo "This project template has no PHP files of its own to check with PHPStan; nothing to do."
+        touch junit.xml
+      fi
+  allow_failure: true
+  artifacts:
+    when: always
+    expire_in: 6 mos
+    paths:
+      - junit.xml
+    reports:
+      junit: junit.xml
 
 # Full Drupal + Node.js setup for the browser acceptance tests.
 #
