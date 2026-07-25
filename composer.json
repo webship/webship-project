@@ -58,7 +58,7 @@
       "drupal/core-composer-scaffold": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "mglaman/composer-drupal-lenient": true,
-      "symfony/runtime": false
+      "symfony/runtime": true
     }
   },
   "extra": {
