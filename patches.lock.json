@@ -1,0 +1,39 @@
+{
+    "_hash": "4afe4572ca52016371f860fd92b2f84653b5bc84595beba2b3d994cddd03a43a",
+    "patches": {
+        "drupal/core": [
+            {
+                "package": "drupal/core",
+                "description": "Issue #3272720: Fix PHP8.1+ Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName",
+                "url": "https://git.drupalcode.org/project/webpatches/-/raw/patches/core-drupal--10-2-x--2022-07-21--3272720-6.patch",
+                "sha256": "4712408867e7ca33a5d7ff36b28865b9ad942b5d9b6551cf967b4cf76cac1700",
+                "depth": 2,
+                "extra": {
+                    "provenance": "dependency:drupal/core"
+                }
+            },
+            {
+                "package": "drupal/core",
+                "description": "Issue #3302838: Fix PHP8.1+ Querying with NULL values results in warning mb_strtolower(): Passing null to parameter is deprecated",
+                "url": "https://git.drupalcode.org/project/webpatches/-/raw/patches/core-drupal--10-2-x--2023-07-05--3302838-38.patch",
+                "sha256": "e1460d3a58e7f14ba3a7143409b230c8075b90cb092dbe626d72c286eff7f107",
+                "depth": 2,
+                "extra": {
+                    "provenance": "dependency:drupal/core"
+                }
+            }
+        ],
+        "drupal/default_content": [
+            {
+                "package": "drupal/default_content",
+                "description": "Issue #3160146: Add Layout Builder Normalizer and Denormalize",
+                "url": "https://git.drupalcode.org/project/webpatches/-/raw/patches/default_content-2021-04-07--3160146-37.patch",
+                "sha256": "f05f5afbf04095bc00d36aeb9874059222ec36166b918fb81f97f6b34b0887e9",
+                "depth": 1,
+                "extra": {
+                    "provenance": "dependency:drupal/default_content"
+                }
+            }
+        ]
+    }
+}
