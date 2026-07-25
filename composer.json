@@ -29,6 +29,7 @@
         "composer/installers": "~2",
         "oomphinc/composer-installers-extender": "~2.0",
         "cweagans/composer-patches": "~2.0",
+        "webship/patches": "~11.0.0",
         "drupal/core-composer-scaffold": "~11.4.0",
         "drupal/core": "~11.4.0",
         "webship/webship": "~11.0.0"
@@ -61,7 +62,8 @@
             "drupal/core-composer-scaffold": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "mglaman/composer-drupal-lenient": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "webship/patches": true
         }
     },
     "extra": {
@@ -119,6 +121,12 @@
         "patchLevel": {
             "drupal/core": "-p2"
         },
-        "patches": {}
+        "patches": {},
+        "composer-patches": {
+            "allowed-dependency-patches": [
+                "webship/patches",
+                "webship/drupal-patches"
+            ]
+        }
     }
 }

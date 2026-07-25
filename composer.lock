@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f847e0b48a108b02d3913da8596d680e",
+    "content-hash": "7a708dba61f0af624a1460dbdcb0cfd5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6197,10 +6197,10 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/webpatches.git",
-                "reference": "7c07f626944414213f5f70d97ade98d76446208d"
+                "reference": "360fdab3343736b160b97b6d2cff2b32717bc075"
             },
             "require": {
-                "drupal/core": "~11.4.0"
+                "drupal/core": "^11.1"
             },
             "type": "drupal-module",
             "extra": {
@@ -6208,20 +6208,11 @@
                     "dev-11.0.x": "11.0.x-dev"
                 },
                 "drupal": {
-                    "version": "11.0.0+1-dev",
-                    "datestamp": "1784767309",
+                    "version": "11.0.1+1-dev",
+                    "datestamp": "1785022271",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
-                    }
-                },
-                "patches": {
-                    "drupal/core": {
-                        "Issue #3272720: Fix PHP8.1+ Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName": "https://git.drupalcode.org/project/webpatches/-/raw/patches/core-drupal--10-2-x--2022-07-21--3272720-6.patch",
-                        "Issue #3302838: Fix PHP8.1+ Querying with NULL values results in warning mb_strtolower(): Passing null to parameter is deprecated": "https://git.drupalcode.org/project/webpatches/-/raw/patches/core-drupal--10-2-x--2023-07-05--3302838-38.patch"
-                    },
-                    "drupal/default_content": {
-                        "Issue #3160146: Add Layout Builder Normalizer and Denormalize": "https://git.drupalcode.org/project/webpatches/-/raw/patches/default_content-2021-04-07--3160146-37.patch"
                     }
                 }
             },
@@ -12698,6 +12689,172 @@
                 "source": "https://github.com/Vardot/module-installer-factory.git"
             },
             "time": "2025-02-17T20:27:09+00:00"
+        },
+        {
+            "name": "webship/drupal-patches",
+            "version": "11.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webship/drupal-patches.git",
+                "reference": "4dac4260ff936ea5ace5f004abb663ce342c90b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webship/drupal-patches/zipball/4dac4260ff936ea5ace5f004abb663ce342c90b9",
+                "reference": "4dac4260ff936ea5ace5f004abb663ce342c90b9",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/core": "~11.4.0"
+            },
+            "type": "metapackage",
+            "extra": {
+                "patches": {
+                    "drupal/core": {
+                        "Issue #3080606: Reorder Layout Builder sections": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2025-12-20--3080606--mr-4075.patch",
+                        "Issue #3457431: Saving text format generates validation warnings": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2024-07-01--3457431--mr-8608.patch",
+                        "Issue #3456176: 11.2 upgrade now missing status-message theme suggestions": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--3456176-138.patch",
+                        "Issue #3049332: Fix Log error + visual warning for missing or broken block": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-02--3049332--drupal-11-4.patch",
+                        "Issue #3543210: Quick Edit Save Via Contextual Links Redirects to 404 Page": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-01-20--3543210--mr-13088.patch",
+                        "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--2893892-11.patch",
+                        "fix: #3581250 Handle field storage and update issues during Recipe installation": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-03-24--3581250--mr-15193.patch",
+                        "Issue #3606822: Synthetic kernel service error on CLI site:install with theme OOP hooks": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-06-28--3606822--classresolver-kernel-resync.patch",
+                        "Issue #3538500: Fix block plugin not found warnings during Drush installation of Webship": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2025-08-30--3538500--drupal11x02x.patch",
+                        "Issue #2741877: Nested modals don't work: opening a modal from a modal closes the original": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2025-06-24--2741877--mr-8105.patch",
+                        "Issue #3544608: Fix Media Library: Selected media lost after pager navigation prevents insertion": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--3544608--mr-13141.patch",
+                        "Issue #3431330: Add Action Method to Add a button plugin and settings into the Active toolbar in editor": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2025-02-18--3431330--drupal-11-1.patch",
+                        "fix: #3352384 Add Exception for TypeError Argument must be String in Drupal Component Utility Html escape{}": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-01-21--3352384--mr-14437.patch",
+                        "Issue #3415961: [drupalMedia] Using the Insert Media button causes the window to scroll to the bottom of the page": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--3415961-19.patch",
+                        "feat: #3559809 Add noUi support for SDC props to hide attributes and utility props from UI while preserving default values": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-02-02--3559809--mr-14056.patch",
+                        "Issue #3302838: Fix PHP8.1+ Querying with NULL values results in warning mb_strtolower(): Passing null to parameter is deprecated": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--3302838-38.patch",
+                        "Issue #2741429: calculateDependencies doesn't check $mode_entity if it is NULL (fatal on drupal_cms_search recipe cloneAs install)": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-02--2741429--entitydisplaybase-null-mode-entity.patch",
+                        "Issue #3465033: Fix not saving addItemToToolbar recipe action for divider | (vertical separator) or wrapping - items to CKEditor 5": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2024-08-01--3465033--mr-9003.patch",
+                        "Issue #3272720: Fix PHP8.1+ Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-26--3272720-6.patch",
+                        "Issue #3101231: Fix multilingual site's layout edit context issue with TypeError: Argument 1 passed to UrlHelper::buildQuery() must be of the type array, null given": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-02--3101231--drupal-11-4.patch",
+                        "Issue #3459881: Fix TypeError: implode(): Argument #1 ($array) must be of type array, string given in implode() (line 537 of core/lib/Drupal/Core/Field/WidgetBase.php)": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2025-02-17--3459881--mr-8702.patch",
+                        "Issue #2701575: Fix TypeError RequestContext::fromRequest(): Argument #1 ($request) must be of type Request, null given (fatal on drush site:install during a request-less route rebuild)": "https://raw.githubusercontent.com/webship/drupal-patches/refs/heads/patches/drupal-core--2026-07-03--2701575--mr-16205.patch"
+                    }
+                },
+                "branch-alias": {
+                    "dev-11.4.x": "11.4.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Webship",
+                    "homepage": "https://webship.org",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Curated Drupal core patches used by Webship, one branch per Drupal core major.minor version.",
+            "keywords": [
+                "composer",
+                "composer patches",
+                "drupal",
+                "drupal core",
+                "drupal core patches",
+                "patches",
+                "webship"
+            ],
+            "support": {
+                "source": "https://github.com/webship/drupal-patches/tree/11.4.0"
+            },
+            "time": "2026-07-25T22:50:46+00:00"
+        },
+        {
+            "name": "webship/patches",
+            "version": "11.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webship/patches.git",
+                "reference": "8e5b4ea068ecd85b7dca861b323ebade50fa5b49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webship/patches/zipball/8e5b4ea068ecd85b7dca861b323ebade50fa5b49",
+                "reference": "8e5b4ea068ecd85b7dca861b323ebade50fa5b49",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "composer/installers": "~2",
+                "cweagans/composer-patches": "~2.0",
+                "oomphinc/composer-installers-extender": "~2",
+                "php": ">=8.1",
+                "webship/drupal-patches": "~11 || ~12"
+            },
+            "default-branch": true,
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Webship\\Patches\\Plugin\\PatchesPlugin",
+                "patches": {
+                    "drupal/gin": {
+                        "fix: #3590827 Sticky form actions appear on node revision revert/delete confirm forms (incomplete exclusion pattern)": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/gin--2026-07-26--3590827--mr-787.patch"
+                    },
+                    "drupal/embed": {
+                        "Issue #3517882: The namespace of EmbedCKEditor5PluginBase does not respect PSR4": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/embed--2026-07-26--3517882--mr-26.patch"
+                    },
+                    "drupal/ctools": {
+                        "fix: #3492432 PHP 8.4 nullable types in MaskContentEntityStorage::doLoadMultiple()": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-07-26--3492432--5a323c6e.patch",
+                        "fix: #3572317 ctools_views schema alter missing requiredKey for views_block mapping keys causes validation errors in Drupal Canvas": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-02-09--3572317--mr-85.patch"
+                    },
+                    "drupal/shield": {
+                        "fix: #3562392 PHP 8.4 - Implicit nullable parameters for Shield": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/shield--2025-12-10--3562392--mr-30.patch"
+                    },
+                    "drupal/redirect": {
+                        "Issue #2879648: Redirects from aliased paths aren't triggered (Drupal 11.4, RedirectPathProcessorManager approach)": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/redirect--2026-07-05--2879648--mr-202.patch"
+                    },
+                    "drupal/entity_embed": {
+                        "Issue #2679875: Inline Entity Form integration": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/entity_embed--2026-07-26--2679875-27.patch",
+                        "Issue #3531672: Drupal 10.5/11.2 compatability (tooltip broken, cannot edit embedded entities)": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/entity_embed--2026-07-26--3531672--mr-62.patch",
+                        "Issue #3070343: Allow to add a Drupal core link with Link Widget for Image entities using Entity Embed Dialog in CKEditor": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/entity_embed--2026-07-26--3070343-37.patch"
+                    },
+                    "drupal/views_bulk_edit": {
+                        "Issue #3544584: Change default Change method to Replace the current value when configuring Modify field values action": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/views_bulk_edit--2025-09-03--3544584--mr-44.patch"
+                    },
+                    "drupal/google_analytics": {
+                        "fix: #3562288 PHP 8.4 - Implicit Nullable Parameters for Google Analytics": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/google_analytics--2025-12-09--3562288--mr-45.patch"
+                    },
+                    "drupal/inline_entity_form": {
+                        "Issue #3136514: IEF complex widget: Re-ordering / weight sometimes not updated": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/inline_entity_form--2026-07-26--3136514--mr-126.patch",
+                        "Issue #2913571: Add a setting to enable/disable inline editing for existing entities": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/inline_entity_form--2026-06-07--2913571--mr-127.patch"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webship\\Patches\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Webship",
+                    "homepage": "https://webship.org",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "List of needed patches for Webship used packages with Composer Patches.",
+            "keywords": [
+                "composer",
+                "composer patches",
+                "drupal",
+                "drupal patches",
+                "patches",
+                "webship",
+                "webship patches"
+            ],
+            "support": {
+                "source": "https://github.com/webship/patches/tree/11.0.x"
+            },
+            "time": "2026-07-25T22:49:10+00:00"
         },
         {
             "name": "webship/webship",
