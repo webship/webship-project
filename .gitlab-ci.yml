@@ -21,6 +21,18 @@ include:
       - "/includes/include.drupalci.variables.yml"
       - "/includes/include.drupalci.workflows.yml"
 
+# Real GitLab merges the `stages:` list from the include above just fine
+# without this (it declares build/validate/test), but `gitlab-ci-local`
+# (see docs/test-locally) does not merge `stages:` across a remote
+# `include:` — without an explicit local declaration it falls back to its
+# own default list and every job in the "build" stage (including our own
+# `composer:` override below) fails with "stage:build not found". Declare
+# it explicitly, matching the include's order, so local runs work too.
+stages:
+  - build
+  - validate
+  - test
+
 # No yarn.lock is committed; Yarn 4 defaults to immutable installs and would
 # refuse to create one. Allow lockfile creation in CI for every job.
 variables:
@@ -242,23 +254,23 @@ phpstan:
     # Database.
     - export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE
     # Install the Webship distribution profile end to end.
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT site:install webship
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT site:install webship
         --db-url=$SIMPLETEST_DB
         --account-name="Admin"
         --account-pass=dD.123123ddd
         --account-mail=info@webship.co
         --site-name="Webship"
         -y
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
     # Provision the per-role test users the suite authenticates as.
     # These match cucumber.js worldParameters.users and
     # scripts/webship.users.yml inside the installed webship profile.
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Authenticated user"
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Authenticated user"
         --mail="test.authenticated@webship.org" --password=dD.123123ddd || true
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Content editor"
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Content editor"
         --mail="test.content_editor@webship.org" --password=dD.123123ddd || true
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add content_editor "Content editor" || true
-    - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add content_editor "Content editor" || true
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
     # Node.js 20.
     - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
     - apt-get install -y nodejs
