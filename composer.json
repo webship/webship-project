@@ -1,5 +1,5 @@
 {
-  "name": "webship/webship-project",
+  "name": "drupal/webship_project",
   "description": "Project template for the webship.co Portal site",
   "type": "project",
   "license": "GPL-2.0-or-later",
@@ -29,9 +29,9 @@
     "composer/installers": "~2",
     "oomphinc/composer-installers-extender": "~2.0",
     "cweagans/composer-patches": "~2.0",
-    "drupal/core-composer-scaffold": "~11",
-    "drupal/core": "~11",
-    "webship/webship": "11.0.x-dev"
+    "drupal/core-composer-scaffold": "~11.4.0",
+    "drupal/core": "~11.4.0",
+    "drupal/webship": "11.0.x-dev"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -58,7 +58,7 @@
     "drupal-scaffold": {
       "allowed-packages": [
         "drupal/core",
-        "webship/webship"
+        "drupal/webship"
       ],
       "gitignore": true,
       "locations": {
