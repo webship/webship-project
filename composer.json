@@ -32,7 +32,7 @@
         "webship/patches": "~11.0.0",
         "drupal/core-composer-scaffold": "~11.4.0",
         "drupal/core": "~11.4.0",
-        "webship/webship": "~11.0.0"
+        "webship/webship": "11.0.x-dev"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
