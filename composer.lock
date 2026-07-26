@@ -12767,16 +12767,16 @@
         },
         {
             "name": "webship/patches",
-            "version": "11.0.x-dev",
+            "version": "11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webship/patches.git",
-                "reference": "8e5b4ea068ecd85b7dca861b323ebade50fa5b49"
+                "reference": "8c8a7f1baf7c2c94c109e2557d7f9e67636fdce9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webship/patches/zipball/8e5b4ea068ecd85b7dca861b323ebade50fa5b49",
-                "reference": "8e5b4ea068ecd85b7dca861b323ebade50fa5b49",
+                "url": "https://api.github.com/repos/webship/patches/zipball/8c8a7f1baf7c2c94c109e2557d7f9e67636fdce9",
+                "reference": "8c8a7f1baf7c2c94c109e2557d7f9e67636fdce9",
                 "shasum": ""
             },
             "require": {
@@ -12787,7 +12787,6 @@
                 "php": ">=8.1",
                 "webship/drupal-patches": "~11 || ~12"
             },
-            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "Webship\\Patches\\Plugin\\PatchesPlugin",
@@ -12797,10 +12796,6 @@
                     },
                     "drupal/embed": {
                         "Issue #3517882: The namespace of EmbedCKEditor5PluginBase does not respect PSR4": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/embed--2026-07-26--3517882--mr-26.patch"
-                    },
-                    "drupal/ctools": {
-                        "fix: #3492432 PHP 8.4 nullable types in MaskContentEntityStorage::doLoadMultiple()": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-07-26--3492432--5a323c6e.patch",
-                        "fix: #3572317 ctools_views schema alter missing requiredKey for views_block mapping keys causes validation errors in Drupal Canvas": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-02-09--3572317--mr-85.patch"
                     },
                     "drupal/shield": {
                         "fix: #3562392 PHP 8.4 - Implicit nullable parameters for Shield": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/shield--2025-12-10--3562392--mr-30.patch"
@@ -12852,9 +12847,9 @@
                 "webship patches"
             ],
             "support": {
-                "source": "https://github.com/webship/patches/tree/11.0.x"
+                "source": "https://github.com/webship/patches/tree/11.0.0"
             },
-            "time": "2026-07-25T22:49:10+00:00"
+            "time": "2026-07-26T00:04:16+00:00"
         },
         {
             "name": "webship/webship",

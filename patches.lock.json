@@ -1,5 +1,5 @@
 {
-    "_hash": "a37f3dd1d01bcc1d5a702713796f70df5dcf7f45d05c5bd94a5e231d89c0d398",
+    "_hash": "92c33eeef399e6067c916a9b4b6ca47c4b1c8c61f610869616b8e33e50e84fdf",
     "patches": {
         "drupal/core": [
             {
@@ -244,28 +244,6 @@
                 "depth": null,
                 "extra": {
                     "provenance": "dependency:drupal/embed"
-                }
-            }
-        ],
-        "drupal/ctools": [
-            {
-                "package": "drupal/ctools",
-                "description": "fix: #3492432 PHP 8.4 nullable types in MaskContentEntityStorage::doLoadMultiple()",
-                "url": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-07-26--3492432--5a323c6e.patch",
-                "sha256": null,
-                "depth": null,
-                "extra": {
-                    "provenance": "dependency:drupal/ctools"
-                }
-            },
-            {
-                "package": "drupal/ctools",
-                "description": "fix: #3572317 ctools_views schema alter missing requiredKey for views_block mapping keys causes validation errors in Drupal Canvas",
-                "url": "https://raw.githubusercontent.com/webship/patches/refs/heads/patches/ctools--2026-02-09--3572317--mr-85.patch",
-                "sha256": null,
-                "depth": null,
-                "extra": {
-                    "provenance": "dependency:drupal/ctools"
                 }
             }
         ],
