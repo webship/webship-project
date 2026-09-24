@@ -241,7 +241,9 @@ phpstan:
     DRUPAL_TEST_BASE_URL: "http://localhost"
     LAUNCH_URL: "http://localhost"
     FORCE_COLOR: "1"
-    _WEBSHIP_PROFILE_DIR: "$CI_PROJECT_DIR/$_WEB_ROOT/profiles/contrib/webship"
+    # The webship-js suite (package.json, cucumber.js, tests/) ships in
+    # this project template itself; the installer package no longer carries it.
+    _WEBSHIP_TESTS_DIR: "$CI_PROJECT_DIR"
   before_script:
     # This template's composer.json sets `allow-plugins.symfony/runtime:
     # false` (a deliberate lockdown, kept as-is here) which stops the
@@ -330,9 +332,9 @@ phpstan:
     - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
     - apt-get install -y nodejs
     - node --version && npm --version
-    # Yarn deps + Playwright Chromium, run from inside the installed profile
-    # package where package.json / cucumber.js / tests/ actually live.
-    - cd $_WEBSHIP_PROFILE_DIR
+    # Yarn deps + Playwright Chromium, run from the project root where
+    # package.json / cucumber.js / tests/ actually live.
+    - cd $_WEBSHIP_TESTS_DIR
     # Force node_modules layout so node_modules/.bin/* is populated.
     - 'test -f .yarnrc.yml || echo "nodeLinker: node-modules" > .yarnrc.yml'
     # Back up cucumber.js. webship-js's postinstall can clobber it under yarn 4
@@ -349,15 +351,15 @@ phpstan:
 webship-js-test:
   extends: .drupal-node-base
   script:
-    - cd $_WEBSHIP_PROFILE_DIR
+    - cd $_WEBSHIP_TESTS_DIR
     - ./node_modules/.bin/cucumber-js --config cucumber.js --tags "not @wip"
   artifacts:
     when: always
     paths:
-      - $_WEB_ROOT/profiles/contrib/webship/tests/reports/
-      - $_WEB_ROOT/profiles/contrib/webship/tests/screenshots/
-      - $_WEB_ROOT/profiles/contrib/webship/tests/videos/
+      - tests/reports/
+      - tests/screenshots/
+      - tests/videos/
     expire_in: 7 days
     reports:
-      junit: $_WEB_ROOT/profiles/contrib/webship/tests/reports/junit.xml
+      junit: tests/reports/junit.xml
   allow_failure: false

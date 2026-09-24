@@ -27,12 +27,16 @@
     },
     "require": {
         "composer/installers": "~2",
-        "oomphinc/composer-installers-extender": "~2.0",
         "cweagans/composer-patches": "~2.0",
-        "webship/patches": "~11.0.0",
-        "drupal/core-composer-scaffold": "~11.4.0",
         "drupal/core": "~11.4.0",
-        "webship/webship": "11.0.x-dev"
+        "drupal/core-composer-scaffold": "~11.4.0",
+        "drupal/webship_portal": "~1.0",
+        "drupal/webship_starter": "~1.0",
+        "drupal/website_starter": "~1.0",
+        "drush/drush": "^13.7",
+        "oomphinc/composer-installers-extender": "~2.0",
+        "webship/patches": "~12.0",
+        "webship/webship": "~12.0"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
@@ -126,6 +130,13 @@
             "allowed-dependency-patches": [
                 "webship/patches",
                 "webship/drupal-patches"
+            ]
+        },
+        "drupal-recipe-unpack": {
+            "ignore": [
+                "drupal/webship_portal",
+                "drupal/webship_starter",
+                "drupal/website_starter"
             ]
         }
     }
