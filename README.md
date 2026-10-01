@@ -1,6 +1,5 @@
-[![pipeline status](https://git.drupalcode.org/project/webship_project/badges/11.0.x/pipeline.svg)](https://git.drupalcode.org/project/webship_project/-/pipelines)
-[![Webship Project](https://img.shields.io/badge/Webship%20Project-11.0.0--rc1-0d6efc?labelColor=001d38&style=flat-square)](https://git.drupalcode.org/project/webship_project/-/pipelines?ref=11.0.0-rc1)
-[![Automated Functional Testing](https://git.drupalcode.org/project/webship_project/badges/11.0.x/pipeline.svg)](https://git.drupalcode.org/project/webship_project/-/pipelines)
+[![pipeline status](https://git.drupalcode.org/project/webship_project/badges/12.0.x/pipeline.svg)](https://git.drupalcode.org/project/webship_project/-/pipelines)
+[![Automated Functional Testing](https://git.drupalcode.org/project/webship_project/badges/12.0.x/pipeline.svg)](https://git.drupalcode.org/project/webship_project/-/pipelines)
 
 # Webship
 
@@ -16,11 +15,12 @@ run inside DDEV, so nothing is needed on your machine but DDEV itself.
 
 ```shell
 mkdir my-site && cd my-site
-ddev config --project-type=drupal --docroot=web
+ddev config --project-type=drupal --docroot=web --database=mysql:8.0
 ddev start
-ddev composer create-project drupal/webship_project:11.0.0-rc1
+ddev composer create-project drupal/webship_project:~12.0
 ddev restart
-ddev drush site:install webship --account-name=webmaster --account-pass=<password> -y
+ddev drush site:install webship --account-name=webmaster -y
+ddev drush user:login
 ddev launch
 ```
 
@@ -28,33 +28,42 @@ ddev launch
 Node.js 22, MySQL 8.0, Apache), which lands in the project during
 `ddev composer create-project` and replaces the one `ddev config` wrote. The
 project name is not in that file: DDEV takes it from the directory, so the site
-is at `https://<directory>.ddev.site`.
+is at `https://<directory>.ddev.site`. The database type must match that file
+from the first `ddev start`, hence `--database=mysql:8.0`.
 
 To answer the install questions in a browser instead, skip the `site:install`
 line and run `ddev launch` right away.
 
-For the development version of Webship 11.0.x, use the branch constraint:
+For the development version, use the branch constraint:
 
 ```shell
-ddev composer create-project drupal/webship_project:11.0.x-dev
+ddev composer create-project drupal/webship_project:12.0.x-dev
 ```
 
-## Without DDEV
+## Drupal 12 (beta)
 
-The same template works with a Composer, PHP and database stack of your own.
-First [install Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx),
-then:
+The template installs the latest Drupal 11 by default. It also allows Drupal 12,
+which needs PHP 8.5. To try it, set `php_version: "8.5"` in `.ddev/config.yaml`
+(a DDEV release with PHP 8.5 is needed), then:
 
 ```shell
-composer create-project drupal/webship_project:11.0.0-rc1 my-site --no-interaction
-cd my-site
-vendor/bin/drush site:install webship --account-name=webmaster --account-pass=<password> -y
+ddev restart
+ddev composer config --unset platform.php
+ddev composer require drupal/core:^12 drupal/core-composer-scaffold:^12 drupal/search:^1 -W
 ```
+
+Search left Drupal core in Drupal 12; Webship Portal uses it, so the contrib
+`drupal/search` module comes with the upgrade.
+
+Contributed modules that don't declare Drupal 12 support yet are allowed by the
+`mglaman/composer-drupal-lenient` plugin (`extra.drupal-lenient.allowed-list`),
+and `webship/patches` adds `^12` to their info files. Some of them still fail on
+Drupal 12; see the Webship issue queue.
 
 ## Requirements
 
-* DDEV — or PHP 8.3 or newer, Composer 2 and a MySQL/MariaDB database.
-* Drupal core `~11.4.0`.
+* DDEV.
+* Drupal core `^11.4`, or `^12` with PHP 8.5.
 * Node.js 20 or newer, for the `webship-js` test suite in `tests/`.
 
 ## Links

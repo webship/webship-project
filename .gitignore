@@ -37,8 +37,10 @@ node_modules/
 /.gitattributes
 
 # Composer/Yarn build artifacts generated locally by `composer install` /
-# `yarn install`. NOTE: for reproducible installs, the release branches/tags
-# commit the lock files (composer.lock, patches.lock.json, yarn.lock).
+# `yarn install`. The template ships no composer.lock: every new project
+# resolves the newest releases its constraints allow.
+/composer.lock
+/patches.lock.json
 build.env
 .pnp.*
 .yarn/

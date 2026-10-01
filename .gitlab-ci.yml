@@ -363,3 +363,22 @@ webship-js-test:
     reports:
       junit: tests/reports/junit.xml
   allow_failure: false
+
+# Drupal 12 (beta) on PHP 8.5: proves the template resolves and installs its
+# packages there, with the lenient plugin and the Webship patches. Allowed to
+# fail while Drupal 12 is a beta and contributed modules catch up.
+composer (Drupal 12):
+  extends: composer
+  allow_failure: true
+  variables:
+    PHP_VERSION: "8.5"
+  script:
+    - cd $CI_PROJECT_DIR && pwd
+    - composer --version
+    # Install the Drupal 11 default first, so the lenient plugin is active when
+    # Composer resolves Drupal 12 (the README's upgrade path).
+    - composer install --no-interaction
+    - composer config --unset platform.php
+    - composer require --no-update "drupal/core:^12" "drupal/core-composer-scaffold:^12" "drupal/search:^1"
+    - composer update --no-interaction --with-all-dependencies
+    - echo "COMPOSER_BIN_DIR=$CI_PROJECT_DIR/bin" >> build.env
