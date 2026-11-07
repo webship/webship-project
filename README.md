@@ -25,7 +25,7 @@ ddev launch
 ```
 
 `ddev restart` picks up the `.ddev/config.yaml` the template ships (PHP 8.4,
-Node.js 22, MySQL 8.0, Apache), which lands in the project during
+Node.js 24, MySQL 8.0, Apache), which lands in the project during
 `ddev composer create-project` and replaces the one `ddev config` wrote. The
 project name is not in that file: DDEV takes it from the directory, so the site
 is at `https://<directory>.ddev.site`. The database type must match that file
@@ -65,7 +65,7 @@ Drupal 12; see the Webship issue queue.
 
 * DDEV.
 * Drupal core `^11.4`, or `^12` with PHP 8.5.
-* Node.js 20 or newer, for the `webship-js` test suite in `tests/`.
+* Node.js 24 or 26, for the `webship-js` test suite in `tests/`.
 
 ## Links
 

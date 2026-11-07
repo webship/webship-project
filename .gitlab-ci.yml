@@ -89,9 +89,15 @@ composer:
     reports:
       dotenv: build.env
 
+.composer-base:
+  variables:
+    # Drupal core's own Yarn 4.9.1 would read the project .yarnrc.yml (Yarn >= 4.14 keys) too.
+    YARN_RC_FILENAME: .yarnrc.core.yml
+    YARN_NODE_LINKER: node-modules
+
 cspell:
   stage: validate
-  image: node:20
+  image: node:24
   before_script:
     - npm install -g cspell
   script:
@@ -107,18 +113,18 @@ cspell:
 #   2. `yarn install --mode=skip-build` — skips every package's build/postinstall
 #      step (eslint/stylelint need none, and it avoids webship-js's postinstall
 #      pulling the Playwright browsers). Install drops to ~10s.
-#   3. Lockfile-keyed cache of `.yarn/cache` so later pipelines reuse packages.
+#   3. package.json-keyed cache of `.yarn/cache` so later pipelines reuse packages.
 # The paired .eslintignore excludes vendor/, .yarn/, web/ and node_modules/ so
 # `eslint .` only lints real template source.
 .lint-yarn:
-  image: node:20
+  image: node:24
   dependencies: []
   variables:
     YARN_ENABLE_GLOBAL_CACHE: "false"
   cache:
     key:
       files:
-        - yarn.lock
+        - package.json
     paths:
       - .yarn/cache
   before_script:
@@ -221,7 +227,7 @@ phpstan:
 #      `.testing-job-base`) which already has PHP, Apache, Drush, and MySQL.
 #   3. before_script installs the Webship *profile* (which brings in all the
 #      component modules, recipes and demo content), provisions the three
-#      per-role test users the suite logs in as, then installs Node.js 20 +
+#      per-role test users the suite logs in as, then installs Node.js 24 +
 #      yarn deps + Playwright Chromium INSIDE the installed profile package
 #      (web/profiles/contrib/webship), which is where the profile ships its
 #      own package.json, cucumber.js and tests/ directory. Test jobs only
@@ -328,8 +334,8 @@ phpstan:
         --mail="test.content_editor@webship.org" --password=dD.123123ddd || true
     - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add content_editor "Content editor" || true
     - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
-    # Node.js 20.
-    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    # Node.js 24.
+    - curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
     - apt-get install -y nodejs
     - node --version && npm --version
     # Yarn deps + Playwright Chromium, run from the project root where

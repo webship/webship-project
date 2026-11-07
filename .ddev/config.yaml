@@ -8,8 +8,8 @@ database:
   type: mysql
   version: "8.0"
 composer_version: "2"
-nodejs_version: "22"
-corepack_enable: false
+nodejs_version: "24"
+corepack_enable: true
 mutagen_enabled: false
 use_dns_when_possible: true
 project_tld: ddev.site
