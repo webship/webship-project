@@ -31,7 +31,7 @@ module.exports = {
         "password": "dD.123123ddd"
       },
       "Content admin":{
-        "email": "test.content_admin@vardot.com",
+        "email": "test.content_admin@webship.co",
         "password": "dD.123123ddd"
       }
     }
