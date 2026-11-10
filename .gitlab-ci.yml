@@ -358,6 +358,7 @@ webship-js-test:
   extends: .drupal-node-base
   script:
     - cd $_WEBSHIP_TESTS_DIR
+    - ./node_modules/.bin/cucumber-js --config cucumber.js --dry-run
     - ./node_modules/.bin/cucumber-js --config cucumber.js --tags "not @wip"
   artifacts:
     when: always
