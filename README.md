@@ -61,6 +61,14 @@ Contributed modules that don't declare Drupal 12 support yet are allowed by the
 and `webship/patches` adds `^12` to their info files. Some of them still fail on
 Drupal 12; see the Webship issue queue.
 
+## Tests
+
+The template ships a [webship-js](https://www.npmjs.com/package/webship-js)
+suite (Cucumber and Playwright) with the login steps of
+`@webship-js/drupal-core-steps`: the front page and the accounts of a new site.
+`tests/README.md` has the full install, from a DDEV site to a green run, and
+the test accounts.
+
 ## Requirements
 
 * DDEV.

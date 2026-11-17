@@ -10,8 +10,8 @@
 #   * a `webship-js-test` job that builds the whole distribution via this
 #     template's own composer.json, installs the Webship profile end to end
 #     on a fresh Drupal ~11.4.0 site, and runs the webship-js Playwright +
-#     Cucumber-js acceptance suite that ships inside the installed
-#     `drupal/webship` profile package (web/profiles/contrib/webship).
+#     Cucumber-js suite this template ships (package.json, cucumber.js,
+#     tests/).
 ################################################################################
 include:
   - project: $_GITLAB_TEMPLATES_REPO
@@ -226,12 +226,12 @@ phpstan:
 #   2. This job runs inside the drupalci PHP-Apache image (inherited from
 #      `.testing-job-base`) which already has PHP, Apache, Drush, and MySQL.
 #   3. before_script installs the Webship *profile* (which brings in all the
-#      component modules, recipes and demo content), provisions the three
-#      per-role test users the suite logs in as, then installs Node.js 24 +
-#      yarn deps + Playwright Chromium INSIDE the installed profile package
-#      (web/profiles/contrib/webship), which is where the profile ships its
-#      own package.json, cucumber.js and tests/ directory. Test jobs only
-#      override `script:`.
+#      component modules, recipes and demo content) with the Webmaster
+#      account, creates the other accounts of cucumber.js
+#      (worldParameters.users) with drush, then installs Node.js 24 + yarn
+#      deps + Playwright Chromium in the project root, where this template
+#      ships its package.json, cucumber.js and tests/ directory. The suite
+#      only logs in. Test jobs only override `script:`.
 # ------------------------------------------------------------------------------
 .drupal-node-base:
   extends: .testing-job-base
@@ -242,8 +242,16 @@ phpstan:
     - name: $_CONFIG_DOCKERHUB_ROOT/$_TARGET_DB_TYPE-$_TARGET_DB_VERSION:$_TARGET_DB_IMAGE_TAG
       alias: database
   variables:
-    DRUPAL_ADMIN_USERNAME: "Admin"
-    DRUPAL_ADMIN_PASSWORD: "dD.123123ddd"
+    # The accounts of cucumber.js worldParameters.users. Their passwords are
+    # made in before_script, for this throwaway site only.
+    DRUPAL_ADMIN_USER: "webmaster"
+    DRUPAL_ADMIN_MAIL: "webmaster@example.test"
+    DRUPAL_EDITOR_USER: "content_editor_user"
+    DRUPAL_EDITOR_MAIL: "content_editor_user@example.test"
+    DRUPAL_AUTHENTICATED_USER: "authenticated_user"
+    DRUPAL_AUTHENTICATED_MAIL: "authenticated_user@example.test"
+    # Honeypot refuses a login form sent within 2 seconds on a Webship site.
+    DRUPAL_LOGIN_WAIT: "3000"
     DRUPAL_TEST_BASE_URL: "http://localhost"
     LAUNCH_URL: "http://localhost"
     FORCE_COLOR: "1"
@@ -316,24 +324,24 @@ phpstan:
     - service apache2 start
     # Database.
     - export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE
+    # Test account passwords, for this job only.
+    - export DRUPAL_ADMIN_PASS=$(php -r "echo bin2hex(random_bytes(12));")
+    - export DRUPAL_EDITOR_PASS=$(php -r "echo bin2hex(random_bytes(12));")
+    - export DRUPAL_AUTHENTICATED_PASS=$(php -r "echo bin2hex(random_bytes(12));")
     # Install the Webship distribution profile end to end.
     - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT site:install webship
         --db-url=$SIMPLETEST_DB
-        --account-name="Admin"
-        --account-pass=dD.123123ddd
-        --account-mail=info@webship.co
+        --account-name="$DRUPAL_ADMIN_USER"
+        --account-mail="$DRUPAL_ADMIN_MAIL"
+        --account-pass="$DRUPAL_ADMIN_PASS"
         --site-name="Webship"
         -y
     - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
-    # Provision the per-role test users the suite authenticates as.
-    # These match cucumber.js worldParameters.users and
-    # scripts/webship.users.yml inside the installed webship profile.
-    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Authenticated user"
-        --mail="test.authenticated@webship.org" --password=dD.123123ddd || true
-    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "Content editor"
-        --mail="test.content_editor@webship.org" --password=dD.123123ddd || true
-    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add content_editor "Content editor" || true
-    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
+    # Test accounts (cucumber.js worldParameters.users). The suite never
+    # creates or deletes an account: the site build does.
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "$DRUPAL_EDITOR_USER" --mail="$DRUPAL_EDITOR_MAIL" --password="$DRUPAL_EDITOR_PASS"
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:role:add content_editor "$DRUPAL_EDITOR_USER"
+    - $CI_PROJECT_DIR/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT user:create "$DRUPAL_AUTHENTICATED_USER" --mail="$DRUPAL_AUTHENTICATED_MAIL" --password="$DRUPAL_AUTHENTICATED_PASS"
     # Node.js 24.
     - curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
     - apt-get install -y nodejs
