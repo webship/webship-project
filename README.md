@@ -24,7 +24,7 @@ ddev drush user:login
 ddev launch
 ```
 
-`ddev restart` picks up the `.ddev/config.yaml` the template ships (PHP 8.4,
+`ddev restart` picks up the `.ddev/config.yaml` the template ships (PHP 8.5,
 Node.js 24, MySQL 8.0, Apache), which lands in the project during
 `ddev composer create-project` and replaces the one `ddev config` wrote. The
 project name is not in that file: DDEV takes it from the directory, so the site
@@ -43,11 +43,9 @@ ddev composer create-project drupal/webship_project:12.0.x-dev
 ## Drupal 12 (beta)
 
 The template installs the latest Drupal 11 by default. It also allows Drupal 12,
-which needs PHP 8.5. To try it, set `php_version: "8.5"` in `.ddev/config.yaml`
-(a DDEV release with PHP 8.5 is needed), then:
+which needs PHP 8.5, the PHP version of the template's DDEV configuration. To try it:
 
 ```shell
-ddev restart
 ddev composer config --unset platform.php
 ddev composer require --no-update drupal/core:^12 drupal/core-composer-scaffold:^12 drupal/search:^1
 ddev composer update -W
@@ -71,7 +69,7 @@ the test accounts.
 
 ## Requirements
 
-* DDEV.
+* DDEV 1.25 or newer: the template's DDEV configuration sets PHP 8.5, which DDEV 1.24 does not offer.
 * Drupal core `^11.4`, or `^12` with PHP 8.5.
 * Node.js 24 or 26, for the `webship-js` test suite in `tests/`.
 
